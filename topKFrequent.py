@@ -8,7 +8,7 @@ class MySolution:
         count = list(freqMap.values())
         
         for k in range(k):
-            largest = -1
+            largest = - 1
             index = None
             for i, n in enumerate(count):
                 if n > largest:
