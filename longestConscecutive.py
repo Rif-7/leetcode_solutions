@@ -1,5 +1,5 @@
 class SortedSolution:
-    def longestConsecutive(self, nums: List[int]) -> int:
+    def longestConsecutive(self, nums) -> int:
         prev = {}
         nums = sorted(nums)
         for i in nums:
@@ -15,7 +15,7 @@ class SortedSolution:
         return ans
 
 class Solution:
-    def longestConsecutive(self, nums: List[int]) -> int:
+    def longestConsecutive(self, nums) -> int:
         longest = 0
         numSet = set(nums)
         for i in numSet:
