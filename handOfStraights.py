@@ -1,3 +1,5 @@
+import heapq
+
 class Solution:
     def isNStraightHand(self, hand, groupSize: int) -> bool:
         if len(hand) % groupSize:
