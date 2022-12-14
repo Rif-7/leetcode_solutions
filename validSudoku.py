@@ -1,6 +1,6 @@
 from collections import defaultdict
 class MySolution:
-    def isValidSudoku(self, board: List[List[str]]) -> bool:
+    def isValidSudoku(self, board) -> bool:
         row = {}
         col = {}
         box = defaultdict(set)
@@ -28,7 +28,7 @@ class MySolution:
         return True
 
 class Solution:
-    def isValidSudoku(self, board: List[List[str]]) -> bool:
+    def isValidSudoku(self, board) -> bool:
         cols = defaultdict(set)
         rows = defaultdict(set)
         squares = defaultdict(set)  # key = (r /3, c /3)
