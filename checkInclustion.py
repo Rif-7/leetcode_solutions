@@ -1,30 +1,28 @@
 class MySolution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        dct = {}
+        if len(s1) > len(s2):
+            return False
+        window = len(s1)
+        s1Count = [0] * 26
         for c in s1:
-            dct[c] = dct.get(c, 0) + 1
-            
+            s1Count[ord(c) - ord('a')] += 1
+        
+        
+        s2Count = [0] * 26
+        for i in range(window):
+            s2Count[ord(s2[i]) - ord('a')] += 1
+        
         i = 0
-        dct2 = {}
-        for j, c in enumerate(s2):
-            dct2[c] = dct2.get(c, 0) + 1
-            if not dct.get(c):
-                i = j + 1
-                dct2 = {}
-            elif dct2[c] > dct[c]:
-                dct2[c] -= 1
-                while s2[i] != c:
-                    if dct2[s2[i]] > 1:
-                        dct2[s2[i]] -= 1
-                    else:
-                        del dct2[s2[i]]
-                        
-                    i += 1
-                i += 1
-            if dct2 == dct:
+        j = window
+        
+        while j < len(s2):
+            if s2Count == s1Count:
                 return True
-        return False
-
+            s2Count[ord(s2[i]) - ord('a')] -= 1
+            i += 1
+            s2Count[ord(s2[j]) - ord('a')] += 1
+            j += 1
+        return s1Count == s2Count
 
 
 class Solution:
