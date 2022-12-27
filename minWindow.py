@@ -29,50 +29,36 @@ class Solution:
         l, r = res
         return s[l: r + 1] if resLen != float("Infinity") else ""
 
-
-
-
-class MySolution: 
-    def minWindow(s: str, t: str) -> str:
-            res = ""
-            tDict = {}
-            for c in t:
-                tDict[c] = tDict.get(c, 0) + 1
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        tMap = {}
+        for c in t:
+            tMap[c] = tMap.get(c, 0) + 1
+        
+        res = [0, float("inf")]
+        sMap = {}
+        i, j = 0, 0
+        while j < len(s):
+            if s[j] in tMap:
+                sMap[s[j]] = sMap.get(s[j], 0) + 1
             
-            
-            i = 0
-            while not tDict.get(s[i]):
-                i += 1
+            while self.isSame(tMap, sMap):
+                if (j - i + 1) < res[1] - res[0]:
+                    res = [i, j+1]
+                if s[i] in sMap:
+                    sMap[s[i]] -= 1
+                    if not sMap[s[i]]:
+                        del sMap[s[i]]
+                i += 1             
                 
-            sDict = {}
-            curr = ""
-            for j in range(i, len(s)):
-                curr += s[j]
                 
-                if j != i and s[j] == s[i] and tDict[s[i]] == sDict[s[i]]:
-                        if sDict[s[j]] == 1:
-                            del sDict[s[j]]
-                        else:
-                            sDict[s[j]] -= 1
-                        i += 1
-                        while not tDict.get(s[i]):
-                            i += 1
-                        curr = s[i:j+1]
-                        
-                if tDict.get(s[j]) and tDict[s[j]] > sDict.get(s[j], 0):
-                    sDict[s[j]] = sDict.get(s[j], 0) + 1
-                    
-                    if sDict == tDict:
-                        if len(curr) < len(res) or not len(res):
-                            res = curr
-                        if sDict[s[i]] == 1:
-                            del sDict[s[i]]
-                        else:
-                            sDict[s[i]] -= 1
-                        i += 1 if i < j else 0
-                        while i < j and not tDict.get(s[i]):
-                            i += 1
-                        curr = s[i: j+1]
-            return res
-
-
+            j += 1
+        return s[res[0]: res[1]] if res[1] != float("inf") else ""
+    
+    def isSame(self, d1, d2):
+        for k, v in d1.items():
+            if k not in d2:
+                return False
+            if v > d2[k]:
+                return False
+        return True
