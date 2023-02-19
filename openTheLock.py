@@ -1,0 +1,29 @@
+class Solution:
+    def openLock(self, deadends, target: str) -> int:
+        visit = set(deadends)
+        if "0000" in visit:
+            return -1
+        
+        def children(lock):
+            res = []
+            for i in range(4):
+                add = str((int(lock[i]) + 1) % 10)
+                res.append(lock[:i] + add + lock[i+1:])
+                sub = str((int(lock[i]) - 1 + 10) % 10)
+                res.append(lock[:i] + sub + lock[i+1:])
+            return res
+        
+        q = deque()
+        q.append(["0000", 0])
+        while q:
+            lock, turns = q.popleft()
+            if lock == target:
+                return turns
+            for child in children(lock):
+                if child in visit:
+                    continue
+                visit.add(child)
+                q.append([child, turns + 1])
+            
+        return -1
+            
