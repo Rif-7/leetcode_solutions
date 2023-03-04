@@ -1,4 +1,5 @@
 import collections
+import heapq
 
 class Solution:
     def maxProbability(self, n: int, edges, succProb, start: int, end: int) -> float:
